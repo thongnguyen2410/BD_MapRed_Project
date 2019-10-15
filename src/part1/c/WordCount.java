@@ -3,6 +3,7 @@ package part1.c;
 import java.io.IOException;
 import java.util.*;
 
+import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
@@ -56,9 +57,17 @@ public class WordCount {
 
 		job.setInputFormatClass(TextInputFormat.class);
 		job.setOutputFormatClass(TextOutputFormat.class);
+		
+		Path output = new Path(args[1]);
+		// configuration should contain reference to your namenode
+		FileSystem fs = FileSystem.get(conf);		
+		if (fs.exists(output)) {
+			// true stands for recursively deleting the folder you gave
+			fs.delete(output, true);
+		}
 
 		FileInputFormat.addInputPath(job, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job, new Path(args[1]));
+		FileOutputFormat.setOutputPath(job, output);
 
 		job.waitForCompletion(true);
 	}
