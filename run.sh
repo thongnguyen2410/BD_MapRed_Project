@@ -27,8 +27,17 @@ hadoop fs -rm ${HDIR}/input/*
 hadoop fs -rmdir ${HDIR}/input
 hadoop fs -mkdir ${HDIR}/input
 hadoop fs -copyFromLocal input/${DIR}*.txt ${HDIR}/input
-hadoop jar bin/${FILE}.jar ${DIR}${FILE} ${HDIR}/input ${HDIR}/output
+hadoop jar bin/${FILE}.jar ${DIR}${FILE} ${HDIR}/input ${HDIR}/output $3
 echo "=================================================="
 echo "hadoop fs -cat ${HDIR}/output/*"
 echo "=================================================="
-hadoop fs -cat ${HDIR}/output/*
+#hadoop fs -cat ${HDIR}/output/*
+files=`hadoop fs -ls -C ${HDIR}/output`
+set -f                      # avoid globbing (expansion of *).
+array=(${files// / })
+
+for i in "${array[@]}"
+do
+   echo "==>$i<=="
+   hadoop fs -cat "$i"
+done
