@@ -137,6 +137,16 @@ public class InMapperApacheLogAvg {
 
 		job.setInputFormatClass(TextInputFormat.class);
 		job.setOutputFormatClass(TextOutputFormat.class);
+		
+		int numReduceTasks = 1;
+		if (args.length >= 3) {
+			try {
+				numReduceTasks = Integer.valueOf(args[2]);
+			} catch (NumberFormatException e) {
+				System.out.println("Default numReduceTasks:" + numReduceTasks);
+			}
+		}
+		job.setNumReduceTasks(numReduceTasks);
 
 		Path output = new Path(args[1]);
 		// configuration should contain reference to your namenode

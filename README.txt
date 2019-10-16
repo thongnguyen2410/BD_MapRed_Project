@@ -10,6 +10,11 @@ How to run?
 ./run.sh part4 RelativeFreqPairStripe 2
 
 
+[part5]
+http://stevekrenzel.com/finding-friends-with-mapreduce
+./run.sh part5/a FriendFinding 2
+
+
 git fetch;git checkout master;git branch -D test;git checkout -b test origin/test
 
 git add -A;git commit --amend;git push -f origin test
