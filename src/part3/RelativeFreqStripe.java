@@ -48,16 +48,6 @@ public class RelativeFreqStripe {
 			}
 		}
 	}
-
-//	public static class Partition extends HashPartitioner<PairWritableComparable, IntWritable> {
-//		@Override
-//		public int getPartition(PairWritableComparable key, IntWritable value, int numReduceTasks){
-//			if(numReduceTasks==0)
-//				return 0;
-//			int res = Math.abs(key.u.hashCode()) % numReduceTasks;
-//			return Math.abs(key.u.hashCode()) % numReduceTasks;
-//		}
-//	}
 	
 	public static class MyMapWritable extends MapWritable {
 

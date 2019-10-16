@@ -29,6 +29,10 @@ hadoop fs -mkdir ${HDIR}/input
 hadoop fs -copyFromLocal input/${DIR}*.txt ${HDIR}/input
 hadoop jar bin/${FILE}.jar ${DIR}${FILE} ${HDIR}/input ${HDIR}/output $3
 echo "=================================================="
+echo "hadoop fs -cat ${HDIR}/input/*"
+echo "=================================================="
+hadoop fs -cat ${HDIR}/input/*
+echo -e "\n=================================================="
 echo "hadoop fs -cat ${HDIR}/output/*"
 echo "=================================================="
 #hadoop fs -cat ${HDIR}/output/*

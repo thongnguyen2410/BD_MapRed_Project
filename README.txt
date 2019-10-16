@@ -6,6 +6,9 @@ How to run?
 [part2]
 ./run.sh part2 RelativeFreqPair 4
 
+[part4]
+./run.sh part4 RelativeFreqPairStripe 2
+
 
 git fetch;git checkout master;git branch -D test;git checkout -b test origin/test
 
