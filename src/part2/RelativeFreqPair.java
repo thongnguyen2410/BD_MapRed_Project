@@ -10,14 +10,11 @@ import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.conf.*;
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapreduce.*;
-import org.apache.hadoop.mapreduce.Mapper.Context;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 import org.apache.hadoop.mapreduce.lib.partition.HashPartitioner;
-
-import part1.f.InMapperApacheLogAvg.PairWritable;
 
 public class RelativeFreqPair {
 
@@ -142,7 +139,6 @@ public class RelativeFreqPair {
 		public int getPartition(PairWritableComparable key, IntWritable value, int numReduceTasks){
 			if(numReduceTasks==0)
 				return 0;
-			int res = Math.abs(key.u.hashCode()) % numReduceTasks;
 			return Math.abs(key.u.hashCode()) % numReduceTasks;
 		}
 	}

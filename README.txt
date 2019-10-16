@@ -4,7 +4,7 @@ How to run?
 ./run.sh part1/e ApacheLogAvg
 
 [part2]
-./run.sh part2 RelativeFreqPair
+./run.sh part2 RelativeFreqPair 4
 
 
 git fetch;git checkout master;git branch -D test;git checkout -b test origin/test
