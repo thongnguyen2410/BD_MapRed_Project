@@ -20,6 +20,7 @@ FILE=$2
 CP="./bin:${HADOOP_LIB_DIR}/*:${HADOOP_LIB_DIR}/lib/*:${HADOOP_LIB_DIR}/client-0.20/*"
 
 rm -f bin/${DIR}*.class  bin/${FILE}.jar
+mkdir bin
 
 javac -cp $CP src/${DIR}${FILE}.java -d bin
 cd bin;jar cfv ${FILE}.jar ${DIR}*.class;cd -
