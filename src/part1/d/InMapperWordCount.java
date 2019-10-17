@@ -1,4 +1,4 @@
-package part1.c;
+package part1.d;
 
 import java.io.IOException;
 import java.util.*;
@@ -13,18 +13,36 @@ import org.apache.hadoop.mapreduce.lib.input.TextInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 import org.apache.hadoop.mapreduce.lib.output.TextOutputFormat;
 
-public class WordCount {
+public class InMapperWordCount {
 
 	public static class Map extends Mapper<LongWritable, Text, Text, IntWritable> {
-		private final static IntWritable one = new IntWritable(1);
-		private Text word = new Text();
+		//private final static IntWritable one = new IntWritable(1);
+		//private Text word = new Text();
+		private HashMap<Text, Integer> H;
+		
+		@Override
+		public void setup(Context context) {
+			H = new HashMap<>();
+		}
 
 		public void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
 			String line = value.toString();
 			StringTokenizer tokenizer = new StringTokenizer(line);
 			while (tokenizer.hasMoreTokens()) {
-				word.set(tokenizer.nextToken());
-				context.write(word, one);
+				Text word = new Text(tokenizer.nextToken());
+				//context.write(word, one);
+				if (H.containsKey(word)) {
+					H.put(word, H.get(word) + 1);
+				} else {
+					H.put(word, 1);
+				}
+			}
+		}
+		
+		@Override
+		public void cleanup(Context context) throws IOException, InterruptedException {
+			for (Text key: H.keySet()) {
+				context.write(key, new IntWritable(H.get(key)));
 			}
 		}
 	}
@@ -46,7 +64,7 @@ public class WordCount {
 
 		@SuppressWarnings("deprecation")
 		Job job = new Job(conf, "wordcount");
-		job.setJarByClass(WordCount.class);
+		job.setJarByClass(InMapperWordCount.class);
 
 
 		job.setOutputKeyClass(Text.class);
